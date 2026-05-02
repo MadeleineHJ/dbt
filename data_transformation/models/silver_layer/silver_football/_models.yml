@@ -1,0 +1,144 @@
+version: 2
+
+models:
+  - name: slv_football__matches
+    description: Cleaned and typed Premier League match results. All string columns from bronze are cast to proper types and renamed for clarity. Only finished matches from the latest scrape run are included.
+    columns:
+      - name: match_id
+        description: Unique match identifier from the football-data.org API.
+      - name: season
+        description: Season year (e.g. 2025).
+      - name: matchday
+        description: Matchday number within the season.
+      - name: stage
+        description: Stage of the competition (e.g. REGULAR_SEASON).
+      - name: match_timestamp
+        description: Match kick-off date and time in UTC.
+      - name: match_date
+        description: Match kick-off date (date only).
+      - name: competition_id
+        description: Competition identifier.
+      - name: competition_name
+        description: Competition name (e.g. Premier League).
+      - name: competition_code
+        description: Competition code (e.g. PL).
+      - name: home_team_id
+        description: Home team identifier.
+      - name: home_team_name
+        description: Home team full name.
+      - name: home_team_short_name
+        description: Home team short name.
+      - name: home_team_tla
+        description: Home team three-letter abbreviation.
+      - name: away_team_id
+        description: Away team identifier.
+      - name: away_team_name
+        description: Away team full name.
+      - name: away_team_short_name
+        description: Away team short name.
+      - name: away_team_tla
+        description: Away team three-letter abbreviation.
+      - name: result
+        description: Match winner (HOME_TEAM, AWAY_TEAM, or DRAW).
+      - name: match_duration
+        description: Match duration type (REGULAR, EXTRA_TIME, PENALTY_SHOOTOUT).
+      - name: full_time_home_goals
+        description: Goals scored by the home team at full time.
+      - name: full_time_away_goals
+        description: Goals scored by the away team at full time.
+      - name: half_time_home_goals
+        description: Goals scored by the home team at half time.
+      - name: half_time_away_goals
+        description: Goals scored by the away team at half time.
+      - name: goal_difference
+        description: Full-time goal difference (home goals minus away goals).
+      - name: result_label
+        description: Human-readable result label (Home Win, Away Win, Draw).
+      - name: scraped_at
+        description: Timestamp when the data was scraped.
+
+  - name: slv_football__standings
+    description: Cleaned and typed Premier League standings. Includes win/draw/loss rates derived from raw counts. All standing types (TOTAL, HOME, AWAY) are retained.
+    columns:
+      - name: team_id
+        description: Team identifier from the football-data.org API.
+      - name: season
+        description: Season year (e.g. 2025).
+      - name: standing_type
+        description: Type of standing (TOTAL, HOME, AWAY).
+      - name: team_name
+        description: Team full name.
+      - name: team_short_name
+        description: Team short name.
+      - name: team_tla
+        description: Team three-letter abbreviation.
+      - name: position
+        description: League position.
+      - name: points
+        description: Total points accumulated.
+      - name: played_games
+        description: Number of games played.
+      - name: won
+        description: Number of games won.
+      - name: drawn
+        description: Number of games drawn.
+      - name: lost
+        description: Number of games lost.
+      - name: goals_for
+        description: Total goals scored.
+      - name: goals_against
+        description: Total goals conceded.
+      - name: goal_difference
+        description: Goal difference (goals scored minus goals conceded).
+      - name: form
+        description: Recent form string (e.g. WWDLW).
+      - name: win_rate
+        description: Proportion of games won (won / played_games).
+      - name: draw_rate
+        description: Proportion of games drawn (drawn / played_games).
+      - name: loss_rate
+        description: Proportion of games lost (lost / played_games).
+      - name: scraped_at
+        description: Timestamp when the data was scraped.
+
+  - name: slv_football__top_scorers
+    description: Cleaned and typed top 50 Premier League scorers. Includes open-play goals and goals-per-match derived metrics.
+    columns:
+      - name: player_id
+        description: Player identifier from the football-data.org API.
+      - name: season
+        description: Season year (e.g. 2025).
+      - name: player_name
+        description: Player full name.
+      - name: first_name
+        description: Player first name.
+      - name: last_name
+        description: Player last name.
+      - name: date_of_birth
+        description: Player date of birth.
+      - name: nationality
+        description: Player nationality.
+      - name: position
+        description: Player position (e.g. Centre-Forward).
+      - name: team_id
+        description: Current team identifier.
+      - name: team_name
+        description: Current team full name.
+      - name: team_short_name
+        description: Current team short name.
+      - name: team_tla
+        description: Current team three-letter abbreviation.
+      - name: goals
+        description: Total goals scored.
+      - name: assists
+        description: Total assists.
+      - name: penalty_goals
+        description: Goals scored from the penalty spot.
+      - name: played_matches
+        description: Number of matches played.
+      - name: open_play_goals
+        description: Goals scored from open play (goals minus penalty goals).
+      - name: goals_per_match
+        description: Average goals scored per match played.
+      - name: scraped_at
+        description: Timestamp when the data was scraped.

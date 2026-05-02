@@ -5,6 +5,6 @@ sources:
     project: my-project-153-370418
     dataset: raw_football
     tables:
-      - name: matches
-      - name: standings
-      - name: top_scorers
+      - name: matches_raw
+      - name: standings_raw
+      - name: top_scorers_raw

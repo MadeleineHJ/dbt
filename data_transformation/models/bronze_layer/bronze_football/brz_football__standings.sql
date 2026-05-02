@@ -1,23 +1,22 @@
-with source as (
-    select * from {{ source('raw_football', 'top_scorers') }}
-),
+{%- set data_layer = 'bronze' %}
+{%- set data_source = 'football' %}
 
-cleaned as (
-    select
-        cast(player_id      as int64)      as player_id,
-        player_name,
-        nationality,
-        position,
-        cast(team_id        as int64)      as team_id,
-        team_name,
-        cast(goals          as int64)      as goals,
-        cast(assists        as int64)      as assists,
-        cast(penalties      as int64)      as penalties,
-        cast(season         as int64)      as season,
-        cast(scraped_at     as timestamp)  as scraped_at
+{{
+    config(
+        materialized='table',
+        schema='brz_football'
+    )
+}}
 
-    from source
-    where player_id is not null
-)
-
-select * from cleaned
+{{
+    flatten_json(
+        table='raw_football.standings_raw',
+        json_column='raw_json',
+        include_columns=['standing_type', 'team_id', 'season', 'scraped_at'],
+        is_source=true,
+        filter_latest_run=true,
+        extraction_date_column='scraped_at',
+        unnest_levels=2,
+        data_layer=data_layer
+    )
+}}
