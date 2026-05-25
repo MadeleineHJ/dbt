@@ -52,6 +52,6 @@ select
     END                                                                 as result_label,
 
     -- metadata
-    scraped_at
+    DATE(SAFE_CAST(execution_date AS TIMESTAMP))                        as last_updated
 
 from {{ ref('brz_football__matches') }}

@@ -40,6 +40,6 @@ select
     )                                                                   as goals_per_match,
 
     -- metadata
-    scraped_at
+    DATE(SAFE_CAST(execution_date AS TIMESTAMP))                        as last_updated
 
 from {{ ref('brz_football__top_scorers') }}

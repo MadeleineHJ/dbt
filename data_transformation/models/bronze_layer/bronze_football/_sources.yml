@@ -3,8 +3,8 @@ version: 2
 sources:
   - name: raw_football
     project: my-project-153-370418
-    dataset: raw_football
+    dataset: scrapers
     tables:
-      - name: matches_raw
-      - name: standings_raw
-      - name: top_scorers_raw
+      - name: football_matches
+      - name: football_standings
+      - name: football_top_scorers

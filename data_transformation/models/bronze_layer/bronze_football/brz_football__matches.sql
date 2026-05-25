@@ -1,5 +1,6 @@
 {%- set data_layer = 'bronze' %}
 {%- set data_source = 'football' %}
+{%- set filter_cond %}JSON_VALUE(data, '$.raw_json.status') = 'FINISHED'{% endset %}
 
 {{
     config(
@@ -10,15 +11,16 @@
 
 {{
     flatten_json(
-        table='raw_football.matches_raw',
+        table='raw_football.football_matches',
         json_column='raw_json',
-        include_columns=['match_id', 'season', 'scraped_at'],
+        json_wrapper_column='data',
+        include_columns=['run_id', 'execution_date'],
         is_source=true,
         filter_latest_run=true,
-        extraction_date_column='scraped_at',
+        extraction_date_column='execution_date',
         unnest_levels=3,
         ignore_keys=['odds', 'referees'],
-        filter_condition="JSON_VALUE(raw_json, '$.status') = 'FINISHED'",
+        filter_condition=filter_cond,
         data_layer=data_layer
     )
 }}
